@@ -1,34 +1,15 @@
 package crawler
 
-import "errors"
+import (
+	"github.com/gotoronto/rnd-workshop/crawler/lists"
+)
 
-var URLs []string
+var list = lists.NewURLList()
 
 func Add(url string) (bool, error) {
-	for _, u := range URLs {
-		if u == url {
-			return false, errors.New("url already exists.")
-		}
-	}
-
-	URLs = append(URLs, url)
-	return true, nil
+	return list.Add(url)
 }
 
 func Delete(url string) bool {
-	var i int
-	var u string
-	for _, u = range URLs {
-		if u == url {
-			break
-		}
-		i++
-	}
-
-	if i >= len(URLs) {
-		return false
-	}
-
-	URLs = append(URLs[:i], URLs[i+1:]...)
-	return true
+	return list.Delete(url)
 }
