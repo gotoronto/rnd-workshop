@@ -44,3 +44,12 @@ func (list *URLList) Delete(url string) bool {
 	}
 	return false
 }
+
+func (list *URLList) Pop() (string, bool) {
+	if len(list.urls) <= 0 {
+		return "", false
+	}
+	url := list.urls[0]
+	list.urls = list.urls[0+1:]
+	return url, true
+}
