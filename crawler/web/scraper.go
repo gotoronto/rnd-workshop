@@ -1,9 +1,7 @@
 package web
 
 import (
-	"fmt"
 	"io"
-	"log"
 	"net/http"
 	"net/url"
 	"time"
@@ -15,7 +13,6 @@ import (
 // returned as a string array. If there was an error while requesting it will be
 // returned as well
 func Scrape(url string) ([]string, error) {
-	log.Printf("Visiting %s", url)
 	client := http.Client{
 		Timeout: time.Duration(2 * time.Second),
 	}
@@ -51,7 +48,6 @@ func parseLinks(r io.Reader) []string {
 					continue
 				}
 
-				fmt.Println(parsed)
 				links = append(links, parsed.String())
 				break
 			}
