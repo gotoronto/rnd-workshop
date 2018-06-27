@@ -57,5 +57,5 @@ func TestCrawl(t *testing.T) {
 	crawler.Crawl(done)
 
 	elapsed := time.Since(start)
-	assert.True(t, elapsed < 3*time.Second)
+	assert.True(t, elapsed < 3*time.Second, "Should succeed under 3 seconds")
 }
