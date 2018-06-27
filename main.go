@@ -8,6 +8,7 @@ import (
 
 func main() {
 	args := os.Args[1:]
+	done := make(chan int)
 	spider := crawler.New(args...)
-	spider.Crawl()
+	spider.Crawl(done)
 }

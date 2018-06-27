@@ -14,7 +14,7 @@ import (
 // returned as well
 func Scrape(url string) ([]string, error) {
 	client := http.Client{
-		Timeout: time.Duration(2 * time.Second),
+		Timeout: time.Duration(4 * time.Second),
 	}
 	response, err := client.Get(url)
 	if err != nil {

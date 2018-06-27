@@ -10,8 +10,8 @@ import (
 const concurrencyLimit = 20
 
 type Crawler struct {
-	list *lists.URLList
-	urls chan string
+	urls    chan string
+	visited *lists.URLList
 }
 
 func New(seeds ...string) *Crawler {
@@ -21,17 +21,19 @@ func New(seeds ...string) *Crawler {
 	}
 
 	return &Crawler{
-		list: lists.NewURLList(),
-		urls: urlChan,
+		urls:    urlChan,
+		visited: lists.NewURLList(),
 	}
 }
 
-func (crawler *Crawler) Crawl() {
+func (crawler *Crawler) Crawl(done chan int) {
 	log.Println("Starting crawler")
 	for {
 		select {
 		case url := <-crawler.urls:
 			go crawler.crawl(url)
+		case <-done:
+			return
 		}
 	}
 }
@@ -45,7 +47,7 @@ func (crawler *Crawler) crawl(url string) {
 	}
 
 	for _, newURL := range links {
-		if ok, _ := crawler.list.Add(newURL); ok {
+		if ok, _ := crawler.visited.Add(newURL); ok {
 			crawler.urls <- newURL
 		}
 	}
