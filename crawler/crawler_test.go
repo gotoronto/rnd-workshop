@@ -4,6 +4,7 @@ import (
 	"html/template"
 	"net/http"
 	"net/http/httptest"
+	"sync/atomic"
 	"testing"
 	"time"
 
@@ -30,28 +31,18 @@ func init() {
 
 func TestCrawl(t *testing.T) {
 	start := time.Now()
-	count := 0
-	request := make(chan int)
+	var count int32
 	done := make(chan int, 1)
 
 	var server *httptest.Server
 	server = httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		time.Sleep(1 * time.Second)
 		bodyTmpl.Execute(w, struct{ URL string }{server.URL})
-		request <- 1
+		if atomic.AddInt32(&count, 1) == 5 {
+			done <- 1
+		}
 	}))
 	defer server.Close()
-
-	go func() {
-		for {
-			<-request
-			count++
-			if count >= 5 {
-				done <- 1
-				break
-			}
-		}
-	}()
 
 	crawler := New(server.URL)
 	crawler.Crawl(done)
