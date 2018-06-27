@@ -31,19 +31,31 @@ func init() {
 func TestCrawl(t *testing.T) {
 	start := time.Now()
 	count := 0
+	request := make(chan int)
 	done := make(chan int, 1)
+
 	var server *httptest.Server
 	server = httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		count++
+		time.Sleep(1 * time.Second)
 		bodyTmpl.Execute(w, struct{ URL string }{server.URL})
-		if count == 5 {
-			done <- 1
-		}
+		request <- 1
 	}))
 	defer server.Close()
+
+	go func() {
+		for {
+			<-request
+			count++
+			if count >= 5 {
+				done <- 1
+				break
+			}
+		}
+	}()
+
 	crawler := New(server.URL)
 	crawler.Crawl(done)
 
 	elapsed := time.Since(start)
-	assert.True(t, elapsed < 1*time.Second)
+	assert.True(t, elapsed < 3*time.Second)
 }

@@ -4,7 +4,6 @@ import (
 	"io"
 	"net/http"
 	"net/url"
-	"time"
 
 	"golang.org/x/net/html"
 )
@@ -13,10 +12,7 @@ import (
 // returned as a string array. If there was an error while requesting it will be
 // returned as well
 func Scrape(url string) ([]string, error) {
-	client := http.Client{
-		Timeout: time.Duration(4 * time.Second),
-	}
-	response, err := client.Get(url)
+	response, err := http.Get(url)
 	if err != nil {
 		return []string{}, err
 	}
