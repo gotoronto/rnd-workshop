@@ -6,7 +6,7 @@ import (
 
 // URLList is a list of urls
 type URLList struct {
-	urls []string
+	Urls []string
 }
 
 // NewURLList will create a new URLList with provided seeds
@@ -14,7 +14,7 @@ func NewURLList(seeds ...string) *URLList {
 	if seeds == nil {
 		seeds = make([]string, 0)
 	}
-	return &URLList{urls: seeds}
+	return &URLList{Urls: seeds}
 }
 
 // Add will add a url to the list if it is not already in the list
@@ -22,13 +22,13 @@ func (list *URLList) Add(url string) (bool, error) {
 	if ok, _ := list.Check(url); ok {
 		return false, errors.New("url already exists")
 	}
-	list.urls = append(list.urls, url)
+	list.Urls = append(list.Urls, url)
 	return true, nil
 }
 
 // Check will check if the url exists already in the list
 func (list *URLList) Check(url string) (bool, int) {
-	for i, u := range list.urls {
+	for i, u := range list.Urls {
 		if u == url {
 			return true, i
 		}
@@ -39,7 +39,7 @@ func (list *URLList) Check(url string) (bool, int) {
 // Delete will remove a url from the list
 func (list *URLList) Delete(url string) bool {
 	if ok, i := list.Check(url); ok {
-		list.urls = append(list.urls[:i], list.urls[i+1:]...)
+		list.Urls = append(list.Urls[:i], list.Urls[i+1:]...)
 		return true
 	}
 	return false
