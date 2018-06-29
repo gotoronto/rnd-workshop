@@ -8,33 +8,27 @@ import (
 )
 
 type Crawler struct {
-	list    *lists.URLList
-	visited *lists.URLList
+	List *lists.URLList
 }
 
 func New(seeds ...string) *Crawler {
 	return &Crawler{
-		list:    lists.NewURLList(seeds...),
-		visited: lists.NewURLList(),
+		List: lists.NewURLList(seeds...),
 	}
 }
 
 func (crawler *Crawler) Crawl(done chan int) {
 	log.Println("Starting crawler")
-	urlToCrawl, moreUrls := crawler.list.Pop()
-	for moreUrls {
-		log.Printf("Visiting %s", urlToCrawl)
-		links, err := web.Scrape(urlToCrawl)
+	for _, url := range crawler.List.URLs {
+		log.Printf("Visiting %s", url)
+		links, err := web.Scrape(url)
 		if err != nil {
-			log.Printf("Error crawling %s: %v\n", urlToCrawl, err)
+			log.Printf("Error crawling %s: %v\n", url, err)
 			continue
 		}
 
 		for _, newURL := range links {
-			if ok, err := crawler.visited.Add(newURL); ok && err == nil {
-				crawler.list.Add(newURL)
-			}
+			crawler.List.Add(newURL)
 		}
-		urlToCrawl, moreUrls = crawler.list.Pop()
 	}
 }
