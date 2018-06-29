@@ -1,34 +1,12 @@
 package crawler
 
-import "errors"
-
+// URLs is the array of urls to add and remove urls to
 var URLs []string
 
-func Add(url string) (bool, error) {
-	for _, u := range URLs {
-		if u == url {
-			return false, errors.New("url already exists.")
-		}
-	}
+// Write a function Add that accepts a url string as a parameter. It will return a
+// boolean if the url was successfully added to the URLs array, it will also return
+// an error if the url already exists in the URLs array
 
-	URLs = append(URLs, url)
-	return true, nil
-}
-
-func Delete(url string) bool {
-	var i int
-	var u string
-	for _, u = range URLs {
-		if u == url {
-			break
-		}
-		i++
-	}
-
-	if i >= len(URLs) {
-		return false
-	}
-
-	URLs = append(URLs[:i], URLs[i+1:]...)
-	return true
-}
+// Write a function Delete that accepts a url string as a parameter. It will return a
+// boolean if the url was successfully found and removed from the URLs array and
+// false otherwise
