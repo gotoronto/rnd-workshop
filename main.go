@@ -16,4 +16,5 @@ func main() {
 			fmt.Printf("Added %s\n", url)
 		}
 	}
+	fmt.Println("final list:", crawler.URLs)
 }
