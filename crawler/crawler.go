@@ -31,7 +31,9 @@ func (crawler *Crawler) Crawl(done chan int) {
 	for {
 		select {
 		case url := <-crawler.urls:
-			go crawler.crawl(url)
+			if found, _ := crawler.visited.Find(url); !found {
+				go crawler.crawl(url)
+			}
 		case <-done:
 			return
 		}
@@ -46,9 +48,9 @@ func (crawler *Crawler) crawl(url string) {
 		return
 	}
 
+	crawler.visited.Add(url)
+
 	for _, newURL := range links {
-		if ok, _ := crawler.visited.Add(newURL); ok {
-			crawler.urls <- newURL
-		}
+		crawler.urls <- newURL
 	}
 }
