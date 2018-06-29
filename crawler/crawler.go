@@ -19,7 +19,8 @@ func New(seeds ...string) *Crawler {
 
 func (crawler *Crawler) Crawl(done chan int) {
 	log.Println("Starting crawler")
-	for _, url := range crawler.List.URLs {
+	for i := 0; i < len(crawler.List.URLs); i++ {
+		url := crawler.List.URLs[i]
 		log.Printf("Visiting %s", url)
 		links, err := web.Scrape(url)
 		if err != nil {
