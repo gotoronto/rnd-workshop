@@ -2,6 +2,7 @@ package crawler
 
 import (
 	"log"
+	"os"
 
 	"github.com/gotoronto/rnd-workshop/crawler/lists"
 	"github.com/gotoronto/rnd-workshop/crawler/web"
@@ -17,7 +18,7 @@ func New(seeds ...string) *Crawler {
 	}
 }
 
-func (crawler *Crawler) Crawl(done chan int) {
+func (crawler *Crawler) Crawl(done chan os.Signal) {
 	log.Println("Starting crawler")
 	for i := 0; i < len(crawler.List.URLs); i++ {
 		url := crawler.List.URLs[i]
@@ -30,6 +31,10 @@ func (crawler *Crawler) Crawl(done chan int) {
 
 		for _, newURL := range links {
 			crawler.List.Add(newURL)
+		}
+
+		if len(done) > 0 {
+			return
 		}
 	}
 }
