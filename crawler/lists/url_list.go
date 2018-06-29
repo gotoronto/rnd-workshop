@@ -24,7 +24,7 @@ func NewURLList(seeds ...string) *URLList {
 
 // Add will add a url to the list if it is not already in the list
 func (list *URLList) Add(url string) (bool, error) {
-	if ok, _ := list.Check(url); ok {
+	if ok, _ := list.Find(url); ok {
 		return false, errors.New("url already exists")
 	}
 	list.mutex.Lock()
@@ -33,8 +33,8 @@ func (list *URLList) Add(url string) (bool, error) {
 	return true, nil
 }
 
-// Check will check if the url exists already in the list
-func (list *URLList) Check(url string) (bool, int) {
+// Find will check if the url exists already in the list
+func (list *URLList) Find(url string) (bool, int) {
 	for i, u := range list.URLs {
 		if u == url {
 			return true, i
@@ -45,7 +45,7 @@ func (list *URLList) Check(url string) (bool, int) {
 
 // Delete will remove a url from the list
 func (list *URLList) Delete(url string) bool {
-	if ok, i := list.Check(url); ok {
+	if ok, i := list.Find(url); ok {
 		list.mutex.Lock()
 		list.URLs = append(list.URLs[:i], list.URLs[i+1:]...)
 		list.mutex.Unlock()
