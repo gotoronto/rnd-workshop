@@ -2,6 +2,7 @@ package crawler
 
 import (
 	"log"
+	"os"
 
 	"github.com/gotoronto/rnd-workshop/crawler/lists"
 	"github.com/gotoronto/rnd-workshop/crawler/web"
@@ -10,8 +11,8 @@ import (
 const concurrencyLimit = 20
 
 type Crawler struct {
-	urls    chan string
-	visited *lists.URLList
+	urls chan string
+	List *lists.URLList
 }
 
 func New(seeds ...string) *Crawler {
@@ -21,17 +22,17 @@ func New(seeds ...string) *Crawler {
 	}
 
 	return &Crawler{
-		urls:    urlChan,
-		visited: lists.NewURLList(),
+		urls: urlChan,
+		List: lists.NewURLList(),
 	}
 }
 
-func (crawler *Crawler) Crawl(done chan int) {
+func (crawler *Crawler) Crawl(done chan os.Signal) {
 	log.Println("Starting crawler")
 	for {
 		select {
 		case url := <-crawler.urls:
-			if found, _ := crawler.visited.Find(url); !found {
+			if found, _ := crawler.List.Find(url); !found {
 				go crawler.crawl(url)
 			}
 		case <-done:
@@ -48,7 +49,7 @@ func (crawler *Crawler) crawl(url string) {
 		return
 	}
 
-	crawler.visited.Add(url)
+	crawler.List.Add(url)
 
 	for _, newURL := range links {
 		crawler.urls <- newURL

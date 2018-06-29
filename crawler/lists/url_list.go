@@ -7,7 +7,7 @@ import (
 
 // URLList is a list of urls
 type URLList struct {
-	urls  []string
+	URLs  []string
 	mutex *sync.Mutex
 }
 
@@ -17,7 +17,7 @@ func NewURLList(seeds ...string) *URLList {
 		seeds = make([]string, 0)
 	}
 	return &URLList{
-		urls:  seeds,
+		URLs:  seeds,
 		mutex: &sync.Mutex{},
 	}
 }
@@ -28,14 +28,14 @@ func (list *URLList) Add(url string) (bool, error) {
 		return false, errors.New("url already exists")
 	}
 	list.mutex.Lock()
-	list.urls = append(list.urls, url)
+	list.URLs = append(list.URLs, url)
 	list.mutex.Unlock()
 	return true, nil
 }
 
 // Find will check if the url exists already in the list
 func (list *URLList) Find(url string) (bool, int) {
-	for i, u := range list.urls {
+	for i, u := range list.URLs {
 		if u == url {
 			return true, i
 		}
@@ -47,20 +47,9 @@ func (list *URLList) Find(url string) (bool, int) {
 func (list *URLList) Delete(url string) bool {
 	if ok, i := list.Find(url); ok {
 		list.mutex.Lock()
-		list.urls = append(list.urls[:i], list.urls[i+1:]...)
+		list.URLs = append(list.URLs[:i], list.URLs[i+1:]...)
 		list.mutex.Unlock()
 		return true
 	}
 	return false
-}
-
-func (list *URLList) Pop() (string, bool) {
-	if len(list.urls) <= 0 {
-		return "", false
-	}
-	list.mutex.Lock()
-	url := list.urls[0]
-	list.urls = list.urls[0+1:]
-	list.mutex.Unlock()
-	return url, true
 }
