@@ -12,6 +12,10 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+// Resource
+// Goroutines: https://gobyexample.com/goroutines
+// Channels: https://golangbot.com/channels
+
 var bodyTmpl *template.Template
 
 func init() {
