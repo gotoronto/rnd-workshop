@@ -6,68 +6,83 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestAddANewURL(t *testing.T) {
-	URLs = []string{}
-	Add("http://www.google.ca")
+// Uncomment one test at a time and write code in crawler/crawler.go to satisfy the test you just uncommented.
 
-	assert.Equal(t, []string{"http://www.google.ca"}, URLs)
-}
+// To run the test
+// dep ensure     // to install dependencies
+// go test ./...
 
-func TestAddOnlyKeepsUniqueURL(t *testing.T) {
-	URLs = []string{}
-	Add("http://www.google.ca")
-	Add("http://www.google.ca")
+// Resources:
+// https://gobyexample.com/
+// https://golang.org/doc/ (use the search bar for doc)
+// Google and Stack Overflow are your friends :)
 
-	assert.Equal(t, []string{"http://www.google.ca"}, URLs)
-}
+// =============================================
+// TEST CASES START HERE
+// =============================================
 
-// doc on deleting an element from an array: https://github.com/golang/go/wiki/SliceTricks#delete
-func TestDeleteURL(t *testing.T) {
-	URLs = []string{}
-	Add("http://www.google.ca")
-	Delete("http://www.google.ca")
+// func TestAddANewURL(t *testing.T) {
+// 	URLs = []string{}
+// 	Add("http://www.google.ca")
+// 
+// 	assert.Equal(t, []string{"http://www.google.ca"}, URLs)
+// }
 
-	assert.Equal(t, []string{}, URLs)
-}
+// func TestAddOnlyKeepsUniqueURL(t *testing.T) {
+// 	URLs = []string{}
+// 	Add("http://www.google.ca")
+// 	Add("http://www.google.ca")
 
-func TestDeleteDoesNothingIfURLNotExist(t *testing.T) {
-	Add("http://www.amazon.ca")
-	Delete("http://www.google.ca")
+// 	assert.Equal(t, []string{"http://www.google.ca"}, URLs)
+// }
 
-	assert.Equal(t, []string{"http://www.amazon.ca"}, URLs)
-}
+// // doc on deleting an element from an array: https://github.com/golang/go/wiki/SliceTricks#delete
+// func TestDeleteURL(t *testing.T) {
+// 	URLs = []string{}
+// 	Add("http://www.google.ca")
+// 	Delete("http://www.google.ca")
 
-func TestDeleteReturnsTrueIfDeleteIsPerformed(t *testing.T) {
-	URLs = []string{}
-	Add("http://www.google.ca")
-	deleted := Delete("http://www.google.ca")
+// 	assert.Equal(t, []string{}, URLs)
+// }
 
-	assert.Equal(t, []string{}, URLs)
-	assert.True(t, deleted)
-}
+// func TestDeleteDoesNothingIfURLNotExist(t *testing.T) {
+// 	Add("http://www.amazon.ca")
+// 	Delete("http://www.google.ca")
 
-func TestDeleteReturnsFalseIfDeleteIsNotPerformed(t *testing.T) {
-	URLs = []string{}
-	deleted := Delete("http://www.google.ca")
+// 	assert.Equal(t, []string{"http://www.amazon.ca"}, URLs)
+// }
 
-	assert.Equal(t, []string{}, URLs)
-	assert.False(t, deleted)
-}
+// func TestDeleteReturnsTrueIfDeleteIsPerformed(t *testing.T) {
+// 	URLs = []string{}
+// 	Add("http://www.google.ca")
+// 	deleted := Delete("http://www.google.ca")
 
-func TestAddReturnsFalseAndErrorIfURLAlreadyExists(t *testing.T) {
-	URLs = []string{"http://www.google.ca"}
-	added, err := Add("http://www.google.ca")
+// 	assert.Equal(t, []string{}, URLs)
+// 	assert.True(t, deleted)
+// }
 
-	assert.Equal(t, []string{"http://www.google.ca"}, URLs)
-	assert.False(t, added)
-	assert.Equal(t, err.Error(), "url already exists.")
-}
+// func TestDeleteReturnsFalseIfDeleteIsNotPerformed(t *testing.T) {
+// 	URLs = []string{}
+// 	deleted := Delete("http://www.google.ca")
 
-func TestAddReturnsTrueAndNilIfURLIsUnique(t *testing.T) {
-	URLs = []string{}
-	added, err := Add("http://www.google.ca")
+// 	assert.Equal(t, []string{}, URLs)
+// 	assert.False(t, deleted)
+// }
 
-	assert.Equal(t, []string{"http://www.google.ca"}, URLs)
-	assert.True(t, added)
-	assert.Nil(t, err)
-}
+// func TestAddReturnsFalseAndErrorIfURLAlreadyExists(t *testing.T) {
+// 	URLs = []string{"http://www.google.ca"}
+// 	added, err := Add("http://www.google.ca")
+
+// 	assert.Equal(t, []string{"http://www.google.ca"}, URLs)
+// 	assert.False(t, added)
+// 	assert.Equal(t, err.Error(), "url already exists.")
+// }
+
+// func TestAddReturnsTrueAndNilIfURLIsUnique(t *testing.T) {
+// 	URLs = []string{}
+// 	added, err := Add("http://www.google.ca")
+
+// 	assert.Equal(t, []string{"http://www.google.ca"}, URLs)
+// 	assert.True(t, added)
+// 	assert.Nil(t, err)
+// }
