@@ -2,6 +2,7 @@ package crawler
 
 import "errors"
 
+// URLs is the array of urls to add and remove urls to
 var URLs []string
 
 func Add(url string) (bool, error) {
@@ -13,22 +14,4 @@ func Add(url string) (bool, error) {
 
 	URLs = append(URLs, url)
 	return true, nil
-}
-
-func Delete(url string) bool {
-	var i int
-	var u string
-	for _, u = range URLs {
-		if u == url {
-			break
-		}
-		i++
-	}
-
-	if i >= len(URLs) {
-		return false
-	}
-
-	URLs = append(URLs[:i], URLs[i+1:]...)
-	return true
 }
