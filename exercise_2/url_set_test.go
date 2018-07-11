@@ -7,14 +7,14 @@ import (
 )
 
 func TestAddANewURL(t *testing.T) {
-	list := NewURLList()
+	list := NewURLSet()
 	list.Add("http://www.google.ca")
 
 	assert.Equal(t, []string{"http://www.google.ca"}, list.URLs)
 }
 
 // func TestAddOnlyKeepsUniqueURL(t *testing.T) {
-//	list := NewURLList()
+//	list := NewURLSet()
 //	list.Add("http://www.google.ca")
 //	list.Add("http://www.google.ca")
 
@@ -22,7 +22,7 @@ func TestAddANewURL(t *testing.T) {
 // }
 
 // func TestAddReturnsFalseAndErrorIfURLAlreadyExists(t *testing.T) {
-//	list := NewURLList("http://www.google.ca")
+//	list := NewURLSet("http://www.google.ca")
 //	added, err := list.Add("http://www.google.ca")
 
 //	assert.Equal(t, []string{"http://www.google.ca"}, list.URLs)
@@ -31,7 +31,7 @@ func TestAddANewURL(t *testing.T) {
 // }
 
 // func TestAddReturnsTrueAndNilIfURLIsUnique(t *testing.T) {
-//	list := NewURLList()
+//	list := NewURLSet()
 //	added, err := list.Add("http://www.google.ca")
 
 //	assert.Equal(t, []string{"http://www.google.ca"}, list.URLs)
