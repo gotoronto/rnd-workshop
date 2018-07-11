@@ -40,6 +40,7 @@ func TestAddANewURL(t *testing.T) {
 //	URLs = []string{"http://www.google.ca"}
 //	added, err := Add("http://www.google.ca")
 
+assert.Error(t, err)
 //	assert.Equal(t, []string{"http://www.google.ca"}, URLs)
 //	assert.False(t, added)
 //	assert.Equal(t, err.Error(), "url already exists.")
