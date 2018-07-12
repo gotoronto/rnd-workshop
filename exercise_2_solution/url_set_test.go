@@ -1,4 +1,4 @@
-package lists
+package urlset
 
 import (
 	"testing"
@@ -23,7 +23,9 @@ func TestAddOnlyKeepsUniqueURL(t *testing.T) {
 
 func TestAddReturnsFalseAndErrorIfURLAlreadyExists(t *testing.T) {
 	list := NewURLSet("http://www.google.ca")
-	added, err := list.Add("http://www.google.ca")
+	var added bool
+	var err error
+	added, err = list.Add("http://www.google.ca")
 
 	assert.Equal(t, []string{"http://www.google.ca"}, list.URLs)
 	assert.False(t, added)
@@ -32,7 +34,9 @@ func TestAddReturnsFalseAndErrorIfURLAlreadyExists(t *testing.T) {
 
 func TestAddReturnsTrueAndNilIfURLIsUnique(t *testing.T) {
 	list := NewURLSet()
-	added, err := list.Add("http://www.google.ca")
+	var added bool
+	var err error
+	added, err = list.Add("http://www.google.ca")
 
 	assert.Equal(t, []string{"http://www.google.ca"}, list.URLs)
 	assert.True(t, added)
