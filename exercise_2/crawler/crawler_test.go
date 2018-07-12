@@ -23,20 +23,17 @@ func TestAddOnlyKeepsUniqueURL(t *testing.T) {
 
 func TestAddReturnsFalseAndErrorIfURLAlreadyExists(t *testing.T) {
 	URLs = []string{"http://www.google.ca"}
-	var added bool
-	var err error
-	added, err = Add("http://www.google.ca")
+	added, err := Add("http://www.google.ca")
 
 	assert.Equal(t, []string{"http://www.google.ca"}, URLs)
 	assert.False(t, added)
-	assert.EqualError(t, err, "url already exists.")
+	assert.Equal(t, err.Error(), "url already exists.")
 }
 
+// Solution same as previous
 func TestAddReturnsTrueAndNilIfURLIsUnique(t *testing.T) {
 	URLs = []string{}
-	var added bool
-	var err error
-	added, err = Add("http://www.google.ca")
+	added, err := Add("http://www.google.ca")
 
 	assert.Equal(t, []string{"http://www.google.ca"}, URLs)
 	assert.True(t, added)
