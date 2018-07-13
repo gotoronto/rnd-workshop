@@ -1,4 +1,4 @@
-package lists
+package urlset
 
 import (
 	"testing"
@@ -14,27 +14,31 @@ func TestAddANewURL(t *testing.T) {
 }
 
 // func TestAddOnlyKeepsUniqueURL(t *testing.T) {
-//	list := NewURLSet()
-//	list.Add("http://www.google.ca")
-//	list.Add("http://www.google.ca")
+//  list := NewURLSet()
+//  list.Add("http://www.google.ca")
+//  list.Add("http://www.google.ca")
 
-//	assert.Equal(t, []string{"http://www.google.ca"}, list.URLs)
+//  assert.Equal(t, []string{"http://www.google.ca"}, list.URLs)
 // }
 
 // func TestAddReturnsFalseAndErrorIfURLAlreadyExists(t *testing.T) {
-//	list := NewURLSet("http://www.google.ca")
-//	added, err := list.Add("http://www.google.ca")
+//  list := NewURLSet("http://www.google.ca")
+//  var added bool
+//  var err error
+//  added, err = list.Add("http://www.google.ca")
 
-//	assert.Equal(t, []string{"http://www.google.ca"}, list.URLs)
-//	assert.False(t, added)
-//	assert.Equal(t, err.Error(), "url already exists")
+//  assert.Equal(t, []string{"http://www.google.ca"}, list.URLs)
+//  assert.False(t, added)
+//  assert.Equal(t, err.Error(), "url already exists")
 // }
 
 // func TestAddReturnsTrueAndNilIfURLIsUnique(t *testing.T) {
-//	list := NewURLSet()
-//	added, err := list.Add("http://www.google.ca")
+//  list := NewURLSet()
+//  var added bool
+//  var err error
+//  added, err = list.Add("http://www.google.ca")
 
-//	assert.Equal(t, []string{"http://www.google.ca"}, list.URLs)
-//	assert.True(t, added)
-//	assert.Nil(t, err)
+//  assert.Equal(t, []string{"http://www.google.ca"}, list.URLs)
+//  assert.True(t, added)
+//  assert.Nil(t, err)
 // }

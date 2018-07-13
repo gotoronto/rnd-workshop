@@ -13,34 +13,33 @@ func TestAddANewURL(t *testing.T) {
 	assert.Equal(t, []string{"http://www.google.ca"}, URLs)
 }
 
+// // Please use the built-in for loop to check for uniqueness
 // func TestAddOnlyKeepsUniqueURL(t *testing.T) {
-//	URLs = []string{}
-//	Add("http://www.google.ca")
-//	Add("http://www.google.ca")
+//  URLs = []string{}
+//  Add("http://www.google.ca")
+//  Add("http://www.google.ca")
 
-//	assert.Equal(t, []string{"http://www.google.ca"}, URLs)
+//  assert.Equal(t, []string{"http://www.google.ca"}, URLs)
 // }
 
 // func TestAddReturnsFalseAndErrorIfURLAlreadyExists(t *testing.T) {
-//	URLs = []string{"http://www.google.ca"}
+// URLs = []string{"http://www.google.ca"}
+// var added bool
+// var err error
+// added, err = Add("http://www.google.ca")
 
-//	var err error
-//	var added bool
-//	added, err = Add("http://www.google.ca")
-
-//	assert.Equal(t, []string{"http://www.google.ca"}, URLs)
-//	assert.False(t, added)
-//	assert.Equal(t, err.Error(), "url already exists.")
+//  assert.Equal(t, []string{"http://www.google.ca"}, URLs)
+//  assert.False(t, added)
+//  assert.EqualError(t, err, "url already exists.")
 // }
 
 // func TestAddReturnsTrueAndNilIfURLIsUnique(t *testing.T) {
-//	URLs = []string{}
+// URLs = []string{}
+// var added bool
+// var err error
+// added, err = Add("http://www.google.ca")
 
-//	var err error
-//	var added bool
-//	added, err = Add("http://www.google.ca")
-
-//	assert.Equal(t, []string{"http://www.google.ca"}, URLs)
-//	assert.True(t, added)
-//	assert.Nil(t, err)
+//  assert.Equal(t, []string{"http://www.google.ca"}, URLs)
+//  assert.True(t, added)
+//  assert.Nil(t, err)
 // }
