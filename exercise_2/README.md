@@ -10,7 +10,6 @@ Implement a class called `URLSet` in `url_set.go`. The class will have one metho
 To run the test:
 ```
 cd exercise_2
-dep ensure
 go test
 ```
 

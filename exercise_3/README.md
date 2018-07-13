@@ -19,8 +19,6 @@ Implement the `Crawl(url string)` function in the `exercise_3/crawler.go` file.
 - Range over channels https://gobyexample.com/range-over-channels
 
 # Note
-PLEASE DON'T MODIFY TEST CASES (You can uncomment them and that's the only thing you can do).
-
 There is a solution folder, but don't look at it until you have finished the exercise. You will NOT learn much if don't try to solve it yourself.
 
 Feel free to google solutions when you are stuck.

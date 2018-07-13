@@ -10,7 +10,6 @@ Uncomment one test at a time in `exercise_1/url_set_test.go` and write code in `
 To run the test:
 ```
 cd exercise_1
-dep ensure
 go test
 ```
 
