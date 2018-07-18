@@ -22,3 +22,31 @@ Implement the `Crawl(url string)` function in the `exercise_3/crawler.go` file.
 There is a solution folder, but don't look at it until you have finished the exercise. You will NOT learn much if don't try to solve it yourself.
 
 Feel free to google solutions when you are stuck.
+
+# Example from slides
+```
+package main
+
+import (
+  "fmt"
+  "net/http"
+)
+
+func main() {
+  pkgs := []string{"os", "net", "fmt", "path"}
+  // checkPkg will check existence of a go pkg
+  checkPkg := func(url string, respChan chan string) {
+    resp, _ := http.Get(url)
+    respChan <- url + ":" + resp.Status
+  }
+  respChan := make(chan string) // a channel to take responses
+  // concurrently request each pkg url
+  for _, pkg := range pkgs {
+    go checkPkg("https://golang.org/pkg/"+pkg, respChan)
+  }
+  // read each response from the channel
+  for respCount := 0; respCount < len(pkgs); respCount++ {
+    fmt.Println(<-respChan)
+  }
+}
+```
