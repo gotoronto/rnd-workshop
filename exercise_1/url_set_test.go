@@ -22,6 +22,8 @@ func TestAddANewURL(t *testing.T) {
 //  assert.Equal(t, []string{"http://www.google.ca"}, URLs)
 // }
 
+// // Please make sure that the second return parameter of the Add function
+// is of type error instead of string (See https://golang.org/pkg/errors/)
 // func TestAddReturnsFalseAndErrorIfURLAlreadyExists(t *testing.T) {
 // URLs = []string{"http://www.google.ca"}
 // var added bool
