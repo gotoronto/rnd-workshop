@@ -22,7 +22,7 @@ func TestAddANewURL(t *testing.T) {
 // }
 
 // func TestAddReturnsFalseAndErrorIfURLAlreadyExists(t *testing.T) {
-//  list := NewURLSet("http://www.google.ca")
+//  list := NewURLSet()
 //  var added bool
 //  var err error
 //  added, err = list.Add("http://www.google.ca")
