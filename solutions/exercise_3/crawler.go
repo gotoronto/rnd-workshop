@@ -6,13 +6,6 @@ import (
 	"golang.org/x/net/html"
 )
 
-func fetch(url string, responses chan []string) {
-	links, err := Scrape(url)
-	if err == nil {
-		responses <- links
-	}
-}
-
 // Crawl will crawl a webpage, and crawl any links that are found in the body of
 // that webpage
 func Crawl(url string) {
@@ -20,7 +13,7 @@ func Crawl(url string) {
 	responses := make(chan []string)
 	requested := make(map[string]bool)
 
-	go fetch(url, responses)
+	go Scrape(url, responses)
 	requested[url] = true
 
 	for visited != len(requested) {
@@ -29,7 +22,7 @@ func Crawl(url string) {
 
 		for _, url := range resp {
 			if found := requested[url]; !found {
-				go fetch(url, responses)
+				go Scrape(url, responses)
 				requested[url] = true
 			}
 		}
@@ -39,10 +32,12 @@ func Crawl(url string) {
 // Scrape will perform a GET request to fetch an html page and scrape it for links.
 // These links will be returned as a string array. If there was an error while
 // requesting it will be returned as well
-func Scrape(uri string) (links []string, err error) {
+func Scrape(uri string, responses chan []string) {
+	links := []string{}
 	response, err := http.Get(uri) // request the uri
 	if err != nil {
-		return []string{}, err
+		responses <- links
+		return
 	}
 	defer response.Body.Close()
 	tokenizer := html.NewTokenizer(response.Body) // new html tokenizer to find tags
@@ -60,5 +55,5 @@ func Scrape(uri string) (links []string, err error) {
 			}
 		}
 	}
-	return
+	responses <- links
 }

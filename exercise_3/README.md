@@ -7,7 +7,15 @@ This exercise teaches how to use concurrency.
 # Task
 Implement the `Crawl(url string)` function in the `exercise_3/crawler.go` file.
 
-- Please checkout the `exercise_3/crawler_test.go` file to see how it is tested, it will give you clues
+Some recommendations:
+- implement things in smaller chunks
+    - Scrape the first url
+    - read the responses off of the channel
+    - iterate the links and scrape each of those
+    - keep doing this until there are no new links
+    - You can track this by tracking requests (Scrape calls) and responses (channel reads)
+    - when they are equal (no requests in progress) then you can exit
+- Please checkout the `exercise_3/crawler_test.go` file to see how it is tested
 - Be sure to use go routines and channels
 
 # Resources

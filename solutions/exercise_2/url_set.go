@@ -10,11 +10,8 @@ type URLSet struct {
 }
 
 // NewURLSet will create a new URLSet with provided seeds
-func NewURLSet(seeds ...string) *URLSet {
-	if seeds == nil {
-		seeds = make([]string, 0)
-	}
-	return &URLSet{URLs: seeds}
+func NewURLSet() *URLSet {
+	return &URLSet{URLs: make([]string, 0)}
 }
 
 // Add will add a url to the list if it is not already in the list

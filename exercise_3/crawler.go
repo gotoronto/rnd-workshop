@@ -14,10 +14,12 @@ func Crawl(url string) {
 // Scrape will perform a GET request to fetch an html page and scrape it for links.
 // These links will be returned as a string array. If there was an error while
 // requesting it will be returned as well
-func Scrape(uri string) (links []string, err error) {
+func Scrape(uri string, responses chan []string) {
+	links := []string{}
 	response, err := http.Get(uri) // request the uri
 	if err != nil {
-		return []string{}, err
+		responses <- links
+		return
 	}
 	defer response.Body.Close()
 	tokenizer := html.NewTokenizer(response.Body) // new html tokenizer to find tags
@@ -35,5 +37,5 @@ func Scrape(uri string) (links []string, err error) {
 			}
 		}
 	}
-	return
+	responses <- links
 }
