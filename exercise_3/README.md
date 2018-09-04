@@ -8,6 +8,9 @@ This exercise teaches how to use concurrency.
 Implement the `Crawl(url string)` function in the `exercise_3/crawler.go` file.
 
 Some recommendations:
+// todos
+ - add suggestion about maps
+ -
 - implement things in smaller chunks
     - Scrape the first url
     - read the responses off of the channel
