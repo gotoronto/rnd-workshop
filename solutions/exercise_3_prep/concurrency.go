@@ -26,15 +26,6 @@ func ManySleep() *sleep.Sleep {
 	for i := 0; i < 1000; i++ {
 		go sleep.Sleep()
 	}
-	time.Sleep(1500 * time.Millisecond)
-	return sleep
-}
-
-func BetterManySleep() *sleep.Sleep {
-	sleep := sleep.New(time.Second)
-	for i := 0; i < 1000; i++ {
-		go sleep.Sleep()
-	}
 
 	count := 0
 	for {
